@@ -128,10 +128,10 @@ int main(int argc, char *argv[])
 	the_clock::time_point start = the_clock::now();
 
 	// This shows the whole set.
-	compute_mandelbrot(-2.0, 1.0, 1.125, -1.125);
+	//compute_mandelbrot(-2.0, 1.0, 1.125, -1.125);
 
 	// This zooms in on an interesting bit of detail.
-	//compute_mandelbrot(-0.751085, -0.734975, 0.118378, 0.134488);
+	compute_mandelbrot(-0.751085, -0.734975, 0.118378, 0.134488);
 
 	// Stop timing
 	the_clock::time_point end = the_clock::now();
