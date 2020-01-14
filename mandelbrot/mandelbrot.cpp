@@ -111,9 +111,29 @@ void compute_mandelbrot(double left, double right, double top, double bottom)
 			}
 			else
 			{
-				// z escaped within less than MAX_ITERATIONS
-				// iterations. This point isn't in the set.
-				image[y][x] = 0xFFFFFF; // white
+				if (iterations = 0)
+				{
+
+					// z escaped within less than MAX_ITERATIONS
+					// iterations. This point isn't in the set.
+					image[y][x] = 0xFFFFFF; // white
+				}
+				else if(iterations <= MAX_ITERATIONS/4) //1st quarter
+				{
+					image[y][x] = 0xff0000; // Light grey
+				}
+				else if (iterations <= MAX_ITERATIONS / 2) //2nd quarter
+				{
+					image[y][x] = 0xBEBEBE; // lighter gray
+				}
+				else if (iterations <= (MAX_ITERATIONS / 4)*3) //3rd quarter
+				{
+					image[y][x] = 0x0000ff; // Grey
+				}
+				else //last quarter
+				{
+					image[y][x] = 0x101010; // Dark grey
+				}
 			}
 		}
 	}
@@ -128,10 +148,10 @@ int main(int argc, char *argv[])
 	the_clock::time_point start = the_clock::now();
 
 	// This shows the whole set.
-	//compute_mandelbrot(-2.0, 1.0, 1.125, -1.125);
+	compute_mandelbrot(-2.0, 1.0, 1.125, -1.125);
 
 	// This zooms in on an interesting bit of detail.
-	compute_mandelbrot(-0.751085, -0.734975, 0.118378, 0.134488);
+	//compute_mandelbrot(-0.751085, -0.734975, 0.118378, 0.134488);
 
 	// Stop timing
 	the_clock::time_point end = the_clock::now();
