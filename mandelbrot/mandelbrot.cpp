@@ -79,11 +79,14 @@ void write_tga(const char *filename)
 
 // Render the Mandelbrot set into the image array.
 // The parameters specify the region on the complex plane to plot.
-void compute_mandelbrot(double left, double right, double top, double bottom)
+void compute_mandelbrot(double left, double right, double top, double bottom, double leftMin, double leftMax)
 {
+	float leftLimit = leftMin;
+	float rightLimit = leftMax;
+
 	for (int y = 0; y < HEIGHT; ++y)
 	{
-		for (int x = 0; x < WIDTH; ++x)
+		for (int x = 0; x < WIDTH && x <= rightLimit; ++x)
 		{
 			// Work out the point in the complex plane that
 			// corresponds to this pixel in the output image.
@@ -120,7 +123,7 @@ void compute_mandelbrot(double left, double right, double top, double bottom)
 				}
 				else if(iterations <= MAX_ITERATIONS/4) //1st quarter
 				{
-					image[y][x] = 0xff0000; // Light grey
+					image[y][x] = 0xDCDCDC; // very light grey
 				}
 				else if (iterations <= MAX_ITERATIONS / 2) //2nd quarter
 				{
@@ -128,7 +131,7 @@ void compute_mandelbrot(double left, double right, double top, double bottom)
 				}
 				else if (iterations <= (MAX_ITERATIONS / 4)*3) //3rd quarter
 				{
-					image[y][x] = 0x0000ff; // Grey
+					image[y][x] = 0x585858; // light gray
 				}
 				else //last quarter
 				{
@@ -148,7 +151,7 @@ int main(int argc, char *argv[])
 	the_clock::time_point start = the_clock::now();
 
 	// This shows the whole set.
-	compute_mandelbrot(-2.0, 1.0, 1.125, -1.125);
+	compute_mandelbrot(-2.0, 1.0, 1.125, -1.125, -2.0, 1.0);
 
 	// This zooms in on an interesting bit of detail.
 	//compute_mandelbrot(-0.751085, -0.734975, 0.118378, 0.134488);
